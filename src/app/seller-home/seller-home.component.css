@@ -10,7 +10,7 @@ img{
 table td , table th{
     border: 1px solid blueviolet;
     padding: 10px;
-    min-width: 160pxs;
+    min-width: 160px;
 }
 .adjust-update-link{
     margin-left: 10px;
