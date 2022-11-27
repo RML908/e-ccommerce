@@ -1,0 +1,98 @@
+@import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+body {
+  font-family: sans-serif;
+}
+
+
+.common-form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  margin: auto;
+}
+
+.form-input {
+  height: 35px;
+  margin-bottom: 20px;
+  border: 1px solid blueviolet;
+  padding-left: 15px;
+  color: blueviolet;
+}
+
+.form-button {
+  height: 35px;
+  border: 1px solid blueviolet;
+  color: blueviolet;
+  cursor: pointer;
+}
+
+mat-card-content a {
+  color: blueviolet !important;
+  cursor: pointer !important;
+}
+
+.container {
+  padding-top: 46px;
+}
+
+mat-card {
+  max-width: 400px;
+  margin: 2em auto;
+  text-align: center;
+}
+
+mat-form-field {
+  display: block;
+}
+
+.user-auth h1 {
+  margin-top: 50px;
+  margin-bottom: 80px;
+  color: blueviolet;
+  text-align: center;
+}
+
+.error-p {
+  color: red;
+}
+
+.message-p {
+  color: green;
+  text-align: center;
+}
+
+.carousel-caption {
+  background-color: #0000007d;
+  border-radius: 10px;
+}
+
+.carousel-control-next-icon, .carousel-control-prev-icon {
+  background-color: black;
+  border-radius: 5px;
+}
+
+.invalid-input {
+  color: red;
+  font-size: 12px;
+  margin-top: -20px
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+.max-width {
+  width: 100%;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+

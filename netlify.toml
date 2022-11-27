@@ -1,0 +1,13 @@
+[build]
+command = "npm run prerender"
+functions = "./functions"
+publish = "dist/ecomm-project"
+[dev]
+command = 'npm run start'
+publish = 'src'
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
+

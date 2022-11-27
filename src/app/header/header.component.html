@@ -1,0 +1,86 @@
+<nav class="navbar navbar-expand-md  fixed-top bg-white  navbar-light p-2  shadow-sm">
+  <a class="navbar-brand" href="#"><i class="fa-solid fa-shop me-2"></i> <strong>Online Store</strong></a>
+  <div *ngIf="menuType!=='seller'" class="mx-auto  d-sm-block d-xs-block">
+    <div class="input-group">
+      <span class="border-warning input-group-text bg-warning text-white"><i
+        class="fa-solid fa-magnifying-glass"></i></span>
+      <input type="text" class="form-control border-warning" style="color:#7a7a7a" #searchInput
+             (keyup)="searchProduct($event)"
+             (blur)="hideSearch()"
+             placeholder="Search Products"
+             [(ngModel)]="searchTerm"
+      >
+      <button class="btn btn-warning text-white"
+              (click)="submitSearch(searchInput.value)">Search
+      </button>
+    </div>
+    <button class="navbar-toggler" type="button"
+            data-toggle="collapse"
+            data-target="#myNavbar"
+            aria-controls="myNavbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation" (click)="isCollapsed = !isCollapsed"
+            [attr.aria-expanded]="!isCollapsed">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <ul class="suggested-search" *ngIf="searchResult">
+      <li *ngFor="let item of searchResult">
+        <a (mousedown)="redirectToDetails(item.id)">{{item.name}}</a>
+      </li>
+    </ul>
+
+  </div>
+
+  <div class="collapse navbar-collapse justify-content-end"
+       id="myNavbar"
+       [ngbCollapse]="isCollapsed"
+       [ngSwitch]="menuType"
+  >
+
+    <ul class="nav navbar-nav mr-auto mt-2 mt-lg-0" *ngSwitchCase="'default'">
+      <li class="nav-item">
+        <a class="nav-link mx-2 text-uppercase" routerLink="">
+          <mat-icon>home</mat-icon>
+          Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link mx-2 text-uppercase" [routerLink]="cartItems > 0 ?'cart-page':null">
+          <mat-icon>shopping_cart</mat-icon>
+          {{cartItems}}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link mx-2 text-uppercase" routerLink="user-auth">
+          <mat-icon>people</mat-icon>&nbsp;Sign-in/Sign-up</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ms-auto " *ngSwitchCase="'user'">
+      <li class="nav-item">
+        <a class="nav-link mx-2 text-uppercase" routerLink="">
+          <mat-icon>home</mat-icon>
+          Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link mx-2 text-uppercase">
+          <mat-icon>portrait</mat-icon>
+          {{userName | titlecase}}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link mx-2 text-uppercase" routerLink="my-orders">
+          <mat-icon>local_shipping</mat-icon>
+          Orders</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link mx-2 text-uppercase" [routerLink]="cartItems>0?'cart-page':null">
+          <mat-icon>shopping_cart</mat-icon>
+          {{cartItems}}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link mx-2 text-uppercase" (click)="userLogout()">
+          <mat-icon>log-out</mat-icon>
+          Lgout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
