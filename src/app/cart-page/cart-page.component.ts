@@ -17,11 +17,15 @@ export class CartPageComponent implements OnInit {
     delivery: 0,
     total: 0
   }
+  private user: string | null;
 
   constructor(private product: ProductService, private router: Router) {
   }
 
   ngOnInit(): void {
+    this.user = localStorage.getItem('user');
+    if(!this.user){
+    }
     this.loadDetails()
 
   }
@@ -34,25 +38,43 @@ export class CartPageComponent implements OnInit {
   }
 
   loadDetails() {
-    this.product.currentCart().subscribe((result) => {
-      this.cartData = result;
-      let price = 0;
-      result.forEach((item) => {
-        if (item.quantity) {
-          price = price + (+item.price * +item.quantity)
+    if(this.user){
+      this.product.currentCart().subscribe((result) => {
+        this.cartData = result;
+        let price = 0;
+        result.forEach((item) => {
+          if (item.quantity) {
+            price = price + (+item.price * +item.quantity)
+          }
+        })
+        this.priceSummary.price = price;
+        this.priceSummary.discount = price / 10;
+        this.priceSummary.tax = price / 10;
+        this.priceSummary.delivery = 100;
+        this.priceSummary.total = price + (price / 10) + 100 - (price / 10);
+
+        if (!this.cartData.length) {
+          this.router.navigate(['/'])
         }
+
       })
-      this.priceSummary.price = price;
-      this.priceSummary.discount = price / 10;
-      this.priceSummary.tax = price / 10;
-      this.priceSummary.delivery = 100;
-      this.priceSummary.total = price + (price / 10) + 100 - (price / 10);
+    }else{
+      this.product.getCartData().subscribe((result:any) =>{
+        this.cartData = result;
+        let price = 0;
+        result.forEach((item:any) => {
+          if (item.quantity) {
+            price = price + (+item.price * +item.quantity)
+          }
+        })
+        this.priceSummary.price = price;
+        this.priceSummary.discount = price / 10;
+        this.priceSummary.tax = price / 10;
+        this.priceSummary.delivery = 100;
+        this.priceSummary.total = price + (price / 10) + 100 - (price / 10);
+      })
+    }
 
-      if (!this.cartData.length) {
-        this.router.navigate(['/'])
-      }
-
-    })
   }
 
 

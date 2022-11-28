@@ -1,5 +1,6 @@
 <nav class="navbar navbar-expand-md  fixed-top bg-white  navbar-light p-2  shadow-sm">
-  <a class="navbar-brand" href="#"><i class="fa-solid fa-shop me-2"></i> <strong>Online Store</strong></a>
+  <a class="navbar-brand" href="#"><i class="fa-solid fa-shop me-2"></i>
+    <strong>Online Store</strong></a>
   <div *ngIf="menuType!=='seller'" class="mx-auto  d-sm-block d-xs-block">
     <div class="input-group">
       <span class="border-warning input-group-text bg-warning text-white"><i
@@ -25,7 +26,7 @@
     </button>
     <ul class="suggested-search" *ngIf="searchResult">
       <li *ngFor="let item of searchResult">
-        <a (mousedown)="redirectToDetails(item.id)">{{item.name}}</a>
+        <a (mousedown)="redirectToDetails(item.id)">{{item.name}}<img src="{{item.image}}"></a>
       </li>
     </ul>
 

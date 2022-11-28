@@ -69,7 +69,6 @@ export class HeaderComponent implements OnInit {
     if (query) {
       this.searchTerm = (query.target as HTMLInputElement).value;
       this.product.searchProduct(this.searchTerm).subscribe((result) => {
-
         if (result.length > 5) {
           result.length = length
         }
@@ -87,7 +86,6 @@ export class HeaderComponent implements OnInit {
   }
 
   submitSearch(val: string) {
-    console.warn(val)
     this.route.navigate([`search/${val}`]);
   }
 

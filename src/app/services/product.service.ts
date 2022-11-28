@@ -15,8 +15,9 @@ export class ProductService {
   constructor(private http: HttpClient) {
   }
 
-   prodcuts: Observable<any> = this.http.get('api/products')
+  prodcuts: Observable<any> = this.http.get('api/products')
   url = JSON.stringify(this.prodcuts)
+
   addProduct(data: product) {
     return this.http.post("api/products", data);
   }
@@ -57,7 +58,7 @@ export class ProductService {
 
   searchProduct(query: string) {
     return this.http.get<product[]>(
-      'api/products?q=${query}'
+      `api/products?q=${query}`
     );
   }
 
@@ -89,7 +90,13 @@ export class ProductService {
     return this.http.post(`api/cart`, cartData);
   }
 
-  getCartList(userId: number) {
+  getCartData() {
+
+    return this.http.get<cart[]>(`api/cart`) as Observable<cart[]>
+
+  }
+
+  getCartList(userId: any) {
     return this.http
       .get<product[]>(`api/cart?userId=` + userId, {
         observe: 'response',
@@ -102,7 +109,7 @@ export class ProductService {
   }
 
   removeToCart(cartId: number) {
-    return this.http.delete(`api//cart` + cartId);
+    return this.http.delete(`api/cart` + cartId);
   }
 
   currentCart() {

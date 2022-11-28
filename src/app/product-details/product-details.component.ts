@@ -24,7 +24,7 @@ export class ProductDetailsComponent implements OnInit {
       let cartData = localStorage.getItem('localCart');
       if (productId && cartData) {
         let items = JSON.parse(cartData);
-        items = items.filter((item: product) => productId === item.id.toString());
+        items = items.filter((item: product) => productId === JSON.stringify(item.id));
         if (items.length) {
           this.removeCart = true
         } else {

@@ -1,51 +1,52 @@
 <div fxLayout="column" fxLayoutAlign="center center" fxFill>
-  <app-loading *ngIf="isLoading"></app-loading></div>
+  <app-loading *ngIf="isLoading"></app-loading>
+</div>
 <ngb-carousel *ngIf="trendyProducts?.length != 0">
-  <ng-template *ngFor="let item of trendyProducts" ngbSlide>
+  <ng-template *ngFor="let trendy of trendyProducts" ngbSlide>
     <div class="picsum-img-wrapper">
 
-      <a routerLink="/details/{{item.id}}">
+      <a routerLink="/details/{{trendy.id}}">
         <img class="product-header-image"
-             src="{{item.image}}"
+             src="{{trendy.image}}"
              alt="Random first slide">
       </a>
     </div>
     <div class="carousel-caption">
-      <h3>{{item.name}}</h3>
-      <p>{{item.short_description}}</p>
+      <h3>{{trendy.name}}</h3>
+      <p>{{trendy.short_description}}</p>
     </div>
   </ng-template>
 </ngb-carousel>
 
-  <div class="container-fluid">
-    <div class="container filter-container d-flex justify-content-around">
-      <div class="item">
-        <a (click)="filter('')" class="filter-link link-success">
-          <img src="./assets/filter_icons/allproducts.png" alt="all_products">
-          <h6 class="text-center">All products</h6>
-        </a>
-      </div>
+<div class="container-fluid">
+  <div class="container filter-container d-flex justify-content-around">
+    <div class="item">
+      <a (click)="filter('')" class="filter-link link-success">
+        <img src="./assets/filter_icons/allproducts.png" alt="all_products">
+        <h6 class="text-center">All products</h6>
+      </a>
+    </div>
 
-      <div class="item">
-        <a (click)="filter('')" class="filter-link link-success">
-          <img src="./assets/filter_icons/men.png" alt="men">
-          <h6 class="text-center">Men</h6>
-        </a>
-      </div>
-      <div class="item">
-        <a (click)="filter('fashion')" class="filter-link link-success">
-          <img src="./assets/filter_icons/women.png" alt="women">
-          <h6 class="text-center">Fashion</h6>
-        </a>
-      </div>
-      <div class="item">
-        <a (click)="filter('electronics')" class="filter-link link-success">
-          <img src="./assets/filter_icons/electronics.png" alt="women">
-          <h6 class="text-center">Electronics</h6>
-        </a>
-      </div>
+    <div class="item">
+      <a (click)="filter('Shoes')" class="filter-link link-success">
+        <img src="./assets/filter_icons/men.png" alt="men">
+        <h6 class="text-center">Shoes</h6>
+      </a>
+    </div>
+    <div class="item">
+      <a (click)="filter('fashion')" class="filter-link link-success">
+        <img src="./assets/filter_icons/women.png" alt="women">
+        <h6 class="text-center">Fashion</h6>
+      </a>
+    </div>
+    <div class="item">
+      <a (click)="filter('electronics')" class="filter-link link-success">
+        <img src="./assets/filter_icons/electronics.png" alt="women">
+        <h6 class="text-center">Electronics</h6>
+      </a>
     </div>
   </div>
+</div>
 
 
 <h1>{{filterName.toString()}}</h1>
@@ -55,13 +56,13 @@
      [infiniteScrollThrottle]="0"
      [infiniteScrollUpDistance]="2"
      (scrolled)="onScroll()"
-     (scrolledUp)="onScrollUp()"
+
      [fromRoot]="true"
 >
   <div class="row">
     <div class="col-sm-3 product-container"
          *ngFor="let item of filterCategory |
-         filter:searchKey:'title'">
+         filter:this.searchKey:'name'">
       <div class="product-item">
         <img src="{{item.image}}" alt="product-image">
         <div class="product-details">
@@ -69,22 +70,13 @@
           <div class="product-price">
             <h6>Price:{{item.price | currency}}</h6>
           </div>
-<!--          <div class="product-color">-->
-<!--            <h6>Color:{{item.color}}</h6>-->
-<!--            <mat-checkbox [disabled]="item.color <= 0" color="primary">{{item.color}}</mat-checkbox>-->
-<!--          </div>-->
         </div>
+
         <div class="product-footer">
           <a routerLink="/details/{{item.id}}">View Details</a>
           <button class="btn btn-outline-primary
               btn-sm mt-s" (click)="addToCart(item)">Add to Cart
           </button>
-          <!--      <button (click)="handleQuantity('min')" >-</button>-->
-          <!--      <input type="text" value="{{productQuantity}}" />-->
-          <!--      <button (click)="handleQuantity('plus')">+</button>-->
-
-          <!--      <button type="btn" (click)="addToCart(item)">Add to Cart</button>-->
-
         </div>
       </div>
     </div>

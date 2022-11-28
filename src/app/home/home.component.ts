@@ -33,30 +33,19 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-   let test = this.product.prodcuts.subscribe(data =>{
-     console.log(test);
-     console.log(data);
-   })
 
     this.isLoading =true
     let json = this.product.getProduct('id')
     let productId = this.activeRoute.snapshot.paramMap.get('productId')
     let cartData = localStorage.getItem('localCart');
     this.productsSubscription = this.product.allProducts(this.page).subscribe((data: any) => {
-      console.log("DATA=====",data)
       this.isLoading = false
       this.allProducts = data;
       this.filterCategory = data
-      this.allProducts.forEach((a: any) => {
-        if (a.category === "women's clothing" || a.category === "men's clothing") {
-          a.category = "fashion"
-
-        }
-        Object.assign(a, {quantity: 1, total: a.price})
-
-      })
-      console.log("allProducts====",this.allProducts);
       this.isLoading = false
+    })
+    this.product.search.subscribe((val:any)=>{
+      this.searchKey = val
     })
 
     this.product.trendyProducts().subscribe((data: any) => {
@@ -70,8 +59,8 @@ export class HomeComponent implements OnInit {
 
   addToCart(item: any) {
     this.isLoading = true
-    if (!localStorage.getItem('user')) {
-      this.product.localAddToCart(item.id)
+    if (!this.user) {
+      this.product.localAddToCart(item)
       this.isLoading = false
     } else {
       let user = localStorage.getItem('user');
@@ -96,19 +85,22 @@ export class HomeComponent implements OnInit {
   }
 
   filter(category: string) {
-    this.filterCategory = this.allProducts
+     // this.filterCategory =[]
+    this.filterCategory =this.allProducts
+
       .filter((val: any) => {
         if (val.category == category || category == '') {
           this.filterName = val.category
-          return val;
+          return val
+
         }
       })
   }
 
   onScroll() {
-    this.product.allProducts(this.page)
+     this.product.allProducts(++this.page)
       .subscribe((item: product[]) => {
-        this.allProducts.push(...item);
+        this.allProducts = item;
       })
   }
 
@@ -133,8 +125,6 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  toggleGridColumns() {
-    this.gridColumns = this.gridColumns === 3 ? 4 : 3;
-  }
+
 
 }
