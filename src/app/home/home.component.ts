@@ -43,6 +43,7 @@ export class HomeComponent implements OnInit {
     let productId = this.activeRoute.snapshot.paramMap.get('productId')
     let cartData = localStorage.getItem('localCart');
     this.productsSubscription = this.product.allProducts(this.page).subscribe((data: any) => {
+      console.log("DATA=====",data)
       this.isLoading = false
       this.allProducts = data;
       this.filterCategory = data
@@ -54,6 +55,7 @@ export class HomeComponent implements OnInit {
         Object.assign(a, {quantity: 1, total: a.price})
 
       })
+      console.log("allProducts====",this.allProducts);
       this.isLoading = false
     })
 
