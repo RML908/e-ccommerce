@@ -4,6 +4,7 @@ functions = "./functions"
 publish = "dist/ecomm-project"
 [dev]
 command = 'npm run start'
+command = 'npm run api'
 publish = 'src'
 
 [[redirects]]
