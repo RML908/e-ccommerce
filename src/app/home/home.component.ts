@@ -43,10 +43,9 @@ export class HomeComponent implements OnInit {
     let productId = this.activeRoute.snapshot.paramMap.get('productId')
     let cartData = localStorage.getItem('localCart');
     this.productsSubscription = this.product.allProducts(this.page).subscribe((data: any) => {
-      this.isLoading = true
+      this.isLoading = false
       this.allProducts = data;
       this.filterCategory = data
-      this.isLoading =false
       this.allProducts.forEach((a: any) => {
         if (a.category === "women's clothing" || a.category === "men's clothing") {
           a.category = "fashion"
