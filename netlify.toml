@@ -8,7 +8,7 @@ command = 'npm run api'
 publish = 'src'
 
 [[redirects]]
-from = "/*"
-to = "/index.html"
+# from = "/*"
+# to = "/index.html"
 status = 200
 
