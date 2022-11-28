@@ -1,8 +1,9 @@
-import { HttpClient, HttpContext, HttpHeaders, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpContext, HttpHeaders, HttpParams} from '@angular/common/http';
 import {EventEmitter, Injectable} from '@angular/core';
 import {cart, order, product} from '../data-type';
 import {BehaviorSubject, Observable} from "rxjs";
 import {PageEvent} from "@angular/material/paginator";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root',
@@ -14,45 +15,49 @@ export class ProductService {
   constructor(private http: HttpClient) {
   }
 
+   prodcuts: Observable<any> = this.http.get('api/products')
+  url = JSON.stringify(this.prodcuts)
   addProduct(data: product) {
-    return this.http.post('http://localhost:8888/products', data);
+    return this.http.post("api/products", data);
   }
 
   productList() {
-    return this.http.get<product[]>('http://localhost:8888/products');
+    return this.http.get<product[]>(`api/products`);
   }
 
   producNewtList(event: PageEvent | undefined) {
-    return this.http.get<any>('http://localhost:8888/products');
+    return this.http.get<any>(`api/products`);
   }
 
   deleteProduct(id: number) {
-    return this.http.delete(`http://localhost:8888/products/${id}`);
+    return this.http.delete(`api/products/${id}`);
   }
 
   getProduct(id: string) {
-    return this.http.get<product>(`http://localhost:8888/products/${id}`);
+    return this.http.get<product>(`api/products/${id}`);
   }
 
   updateProduct(product: product) {
     return this.http.put<product>(
-      `http://localhost:8888/products/${product.id}`,
+      'api//products/${product.id}',
       product
     );
   }
-  allProducts(page:number): Observable<product[]> {
+
+  allProducts(page: number): Observable<product[]> {
     return this.http.get(
-      `http://localhost:8888/products?page=${page}&limit=5`
-    )  as  Observable<product[]>;
+      `api/products?page=${page}&limit=5`
+    ) as Observable<product[]>;
   }
 
   trendyProducts() {
-    return this.http.get<product[]>('http://localhost:8888/trendy_products?_limit=3');
+    return this.http.get<product[]>(`api/trendy_products?/trendy_products`
+    ) as Observable<product[]>;
   }
 
   searchProduct(query: string) {
     return this.http.get<product[]>(
-      `http://localhost:8888/products?q=${query}`
+      'api/products?q=${query}'
     );
   }
 
@@ -81,11 +86,12 @@ export class ProductService {
   }
 
   addToCart(cartData: cart) {
-    return this.http.post('http://localhost:8888/cart', cartData);
+    return this.http.post(`${environment.apiUrl}/cart`, cartData);
   }
+
   getCartList(userId: number) {
     return this.http
-      .get<product[]>('http://localhost:8888/cart?userId=' + userId, {
+      .get<product[]>(`api/cart?userId=` + userId, {
         observe: 'response',
       })
       .subscribe((result) => {
@@ -94,32 +100,35 @@ export class ProductService {
         }
       });
   }
+
   removeToCart(cartId: number) {
-    return this.http.delete('http://localhost:8888/cart/' + cartId);
+    return this.http.delete(`api//cart` + cartId);
   }
+
   currentCart() {
     let userStore = localStorage.getItem('user');
     let userData = userStore && JSON.parse(userStore);
-    return this.http.get<cart[]>('http://localhost:8888/cart?userId=' + userData.id);
+    return this.http.get<cart[]>(`api/cart?userId=` + userData.id);
   }
 
   orderNow(data: order) {
-    return this.http.post('http://localhost:8888/orders', data);
+    return this.http.post(`api/orders`, data);
   }
+
   orderList() {
     let userStore = localStorage.getItem('user');
     let userData = userStore && JSON.parse(userStore);
-    return this.http.get<order[]>('http://localhost:8888/orders?userId=' + userData.id);
+    return this.http.get<order[]>(`api/orders?userId=` + userData.id);
   }
 
   deleteCartItems(cartId: number) {
-    return this.http.delete('http://localhost:8888/cart/' + cartId).subscribe((result) => {
+    return this.http.delete(`api/cart/` + cartId).subscribe((result) => {
       this.cartData.emit([]);
     })
   }
 
-  cancelOrder(orderId:number){
-    return this.http.delete('http://localhost:8888/orders/'+orderId)
+  cancelOrder(orderId: number) {
+    return this.http.delete(`api/orders/` + orderId)
 
   }
 

@@ -35,6 +35,9 @@ import {MatInputModule} from "@angular/material/input";
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import {MatCardModule} from "@angular/material/card";
 import {FlexLayoutModule} from "@angular/flex-layout";
+import { LoadingComponent } from './shared/loading/loading.component';
+import {MatSliderModule} from "@angular/material/slider";
+import {MatRadioModule} from "@angular/material/radio";
 
 @NgModule({
   declarations: [
@@ -54,6 +57,7 @@ import {FlexLayoutModule} from "@angular/flex-layout";
     MyOrdersComponent,
     ProductColorDirective,
     FilterPipe,
+    LoadingComponent,
   ],
   imports: [
     BrowserModule,
@@ -75,7 +79,9 @@ import {FlexLayoutModule} from "@angular/flex-layout";
     MatProgressSpinnerModule,
     InfiniteScrollModule,
     MatCardModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatSliderModule,
+    MatRadioModule
   ],
   providers: [],
   bootstrap: [AppComponent],

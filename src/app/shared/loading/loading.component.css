@@ -1,0 +1,22 @@
+.mat-progress-spinner {
+  z-index: 1;
+  width: 100px;
+  height: 100px;
+  position: fixed;
+  text-align: center;
+  top: 36%;
+  left: 45%;
+}
+
+.message {
+  position: fixed;
+  text-align: center;
+  top: 51%;
+  font-style: italic;
+  z-index: 1;
+  left: 50%;
+  font-size: 50px;
+  color: coral;
+  font-weight: 600;
+  transform: translate(-50%, -50%);
+}

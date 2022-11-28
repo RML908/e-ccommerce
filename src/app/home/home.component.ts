@@ -16,7 +16,9 @@ export class HomeComponent implements OnInit {
   public productQuantity: number = 1;
   public searchKey: string = '';
   public filterName: string = '';
+  public gridColumns = 3;
   public page = 1;
+  public isLoading: boolean = true
   private cartData: product | undefined;
   private user: any;
   private products: product;
@@ -31,10 +33,17 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+   let test = this.product.prodcuts.subscribe(data =>{
+     console.log(test);
+     console.log(data);
+   })
+
+    this.isLoading =true
     let json = this.product.getProduct('id')
     let productId = this.activeRoute.snapshot.paramMap.get('productId')
     let cartData = localStorage.getItem('localCart');
     this.productsSubscription = this.product.allProducts(this.page).subscribe((data: any) => {
+      this.isLoading = true
       this.allProducts = data;
       this.filterCategory = data
       this.allProducts.forEach((a: any) => {
@@ -45,7 +54,7 @@ export class HomeComponent implements OnInit {
         Object.assign(a, {quantity: 1, total: a.price})
 
       })
-
+      this.isLoading = false
     })
 
     this.product.trendyProducts().subscribe((data: any) => {
@@ -58,8 +67,10 @@ export class HomeComponent implements OnInit {
   }
 
   addToCart(item: any) {
+    this.isLoading = true
     if (!localStorage.getItem('user')) {
       this.product.localAddToCart(item.id)
+      this.isLoading = false
     } else {
       let user = localStorage.getItem('user');
       let userId = user && JSON.parse(user).id;
@@ -68,12 +79,17 @@ export class HomeComponent implements OnInit {
         productId: item.id,
         userId
       }
+      this.isLoading = false
       delete cartData.id;
       this.product.addToCart(cartData).subscribe((result) => {
         if (result) {
           this.product.getCartList(userId);
         }
+        this.isLoading = false
+      },error => {
+
       })
+      this.isLoading = false
     }
   }
 
@@ -113,6 +129,10 @@ export class HomeComponent implements OnInit {
     } else if (this.productQuantity > 1 && val === 'min') {
       this.productQuantity -= 1;
     }
+  }
+
+  toggleGridColumns() {
+    this.gridColumns = this.gridColumns === 3 ? 4 : 3;
   }
 
 }
