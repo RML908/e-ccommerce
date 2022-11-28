@@ -46,6 +46,7 @@ export class HomeComponent implements OnInit {
       this.isLoading = true
       this.allProducts = data;
       this.filterCategory = data
+      this.isLoading =false
       this.allProducts.forEach((a: any) => {
         if (a.category === "women's clothing" || a.category === "men's clothing") {
           a.category = "fashion"
