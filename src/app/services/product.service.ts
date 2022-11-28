@@ -86,7 +86,7 @@ export class ProductService {
   }
 
   addToCart(cartData: cart) {
-    return this.http.post(`${environment.apiUrl}/cart`, cartData);
+    return this.http.post(`api/cart`, cartData);
   }
 
   getCartList(userId: number) {
